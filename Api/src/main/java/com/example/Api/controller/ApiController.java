@@ -1,18 +1,13 @@
-package com.example.Api.controller;
+package com.example.Api.Controller;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 public class ApiController {
-	@Value("${app.id}")
-	String instance;
-	
+
 	@GetMapping("/")
-	public String hi()
-	{
-		return "welcome, i am " + instance;
+	public String hi() {
+		return "bienvenidos grupo de web";
 	}
 }
