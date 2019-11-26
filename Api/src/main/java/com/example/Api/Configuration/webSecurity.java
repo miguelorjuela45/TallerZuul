@@ -8,8 +8,9 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.example.Api.Service.UsuarioService;
+import com.example.Api.Service.UsuarioService;;
 
 @Configuration
 @EnableWebSecurity
@@ -26,7 +27,8 @@ public class webSecurity extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
+		http.csrf().disable().authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated().and()
+		.addFilterBefore(new LoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+		.addFilterBefore(new JwtFilter(),UsernamePasswordAuthenticationFilter.class);
 	}
-
 }
